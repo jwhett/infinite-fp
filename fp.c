@@ -5,13 +5,13 @@
 #include <sys/types.h>
 #include <unistd.h>
 
+#define		LEFT	1
+#define		MIDDLE	2
+#define		RIGHT	4
+
+
 int main(int argc, char** argv)
 {
-    // declare a buff
-    // open raw device file for reading
-    // read bytes into buff
-    // communicate state
-    // 
     // TODO: compare bytes in buff to ID state
 
     if (argc < 2)
@@ -26,8 +26,13 @@ int main(int argc, char** argv)
 
     while (1)
     {
-        int numBytes = read(handle, buff, 2); // read 2 bytes into buff
-        printf("NUMBYTES: %d\n", numBytes);
-        printf("Buff: %x%x\n", buff[0], buff[1]);
+        read(handle, buff, 2); // read 2 bytes into buff
+        if (buff[0] & LEFT)
+            printf("LEFT\n");
+        if (buff[0] & MIDDLE)
+            printf("MIDDLE\n");
+        if (buff[0] & RIGHT)
+            printf("RIGHT\n");
+       // printf("Buff: %x\n", buff[0]);
     }
 }
